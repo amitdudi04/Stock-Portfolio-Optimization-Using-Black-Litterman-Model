@@ -17,12 +17,10 @@ from PyQt5.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QTabWidget, QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem,
     QComboBox, QSpinBox, QDoubleSpinBox, QDateEdit, QMessageBox, QStatusBar,
-    QProgressDialog, QFileDialog, QSplitter, QFrame
+    QProgressDialog, QFileDialog, QFrame
 )
 from PyQt5.QtCore import Qt, QDate, QThread, pyqtSignal
-from PyQt5.QtGui import QFont, QIcon, QColor
-from PyQt5.QtChart import QChart, QChartView, QBarSeries, QBarSet, QBarCategoryAxis, QValueAxis
-from PyQt5.QtCore import Qt as QtCore
+from PyQt5.QtGui import QFont
 
 # Add portfolio_optimization to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
