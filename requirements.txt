@@ -4,3 +4,16 @@ scipy>=1.7.0
 matplotlib>=3.4.0
 seaborn>=0.11.0
 yfinance>=0.1.70
+
+# Web Framework
+streamlit>=1.28.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.6
+
+# Visualization
+plotly>=5.17.0
+
+# Database
+sqlalchemy>=2.0.0
+sqlite3-python>=1.0.0
