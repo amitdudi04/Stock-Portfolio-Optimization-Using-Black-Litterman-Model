@@ -11,23 +11,29 @@ pip install -r requirements.txt
 
 ### 2. Run the Application
 
-**Interactive Dashboard:**
+**Desktop GUI (Recommended):**
+```bash
+python run_desktop_gui.py
+```
+Professional PyQt5 desktop application with tabbed interface
+
+**Interactive Web Dashboard:**
 ```bash
 python run_dashboard.py
 ```
-Opens at http://localhost:8501
+Opens at http://localhost:8501 in your browser
 
 **REST API Server:**
 ```bash
 python run_api.py
 ```
-Interactive docs at http://localhost:8000/docs
+Interactive API docs at http://localhost:8000/docs
 
 **Command-Line Analysis:**
 ```bash
 python run_analysis.py
 ```
-Produces complete analysis with backtesting results
+Produces complete analysis report with backtesting results
 
 ## 📋 Project Overview
 
@@ -69,9 +75,11 @@ Where:
 ✅ Skewness, Kurtosis, Downside Deviation  
 ✅ Maximum Drawdown, Ulcer Index  
 
-### 3. Web Interfaces
-✅ **Streamlit Dashboard** - Interactive exploration  
-✅ **FastAPI Backend** - RESTful API with Swagger  
+### 3. User Interfaces (4 Options)
+✅ **Desktop GUI (PyQt5)** - Professional native application  
+✅ **Streamlit Dashboard** - Interactive web exploration  
+✅ **FastAPI Backend** - RESTful API with Swagger documentation  
+✅ **Command-Line** - Scripting and automation  
 ✅ **HTML Reporting** - Static report generation  
 
 ### 4. Backtesting
