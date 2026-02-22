@@ -42,14 +42,14 @@ def main():
         window = PortfolioGUI()
         window.show()
         
-        print("✓ Desktop application launched successfully")
+        print("[OK] Desktop application launched successfully")
         print("  Window: Portfolio Optimization System (PyQt5)")
         print("\n  Features:")
-        print("  • Configure portfolio assets")
-        print("  • Specify investor views")
-        print("  • Run optimization")
-        print("  • Analyze results")
-        print("  • Export to CSV/Excel\n")
+        print("  - Configure portfolio assets")
+        print("  - Specify investor views")
+        print("  - Run optimization")
+        print("  - Analyze results")
+        print("  - Export to CSV/Excel\n")
         
         sys.exit(app.exec_())
     

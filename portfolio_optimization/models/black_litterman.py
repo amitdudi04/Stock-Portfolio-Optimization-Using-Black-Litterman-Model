@@ -74,13 +74,55 @@ class BlackLittermanOptimizer:
     def _fetch_data(self):
         """Fetch historical price data from Yahoo Finance."""
         print("Fetching historical price data...")
-        data = yf.download(self.ticker_list, start=self.start_date, end=self.end_date, 
-                          progress=False)['Adj Close']
+        try:
+            # Override yfinance tz cache to avoid disk I/O errors
+            import tempfile
+            import os
+            try:
+                custom_cache = os.path.join(tempfile.gettempdir(), "yf_cache_custom")
+                if not os.path.exists(custom_cache):
+                    os.makedirs(custom_cache, exist_ok=True)
+                yf.set_tz_cache_location(custom_cache)
+            except AttributeError:
+                pass
+                
+            # Download data with progress disabled
+            data = yf.download(self.ticker_list, start=self.start_date, end=self.end_date, 
+                              progress=False)
+            
+            # Handle different return structures based on number of tickers
+            if isinstance(data, pd.DataFrame):
+                if 'Adj Close' in data.columns:
+                    # Multi-index case: result has multi-level columns
+                    data = data['Adj Close']
+                elif len(self.ticker_list) == 1 and self.ticker_list[0] in data.columns:
+                    # Single ticker case where columns are [Open, High, Low, Close, Adj Close, Volume]
+                    data = data[['Adj Close']]
+                    data.columns = [self.ticker_list[0]]
+                else:
+                    # Fallback: assume Close prices if Adj Close not available
+                    print("Warning: 'Adj Close' not found, using 'Close' as fallback")
+                    if 'Close' in data.columns:
+                        data = data['Close']
+                    else:
+                        raise ValueError(f"Could not find price data in columns: {data.columns.tolist()}")
+            
+            # Ensure proper column structure
+            if isinstance(data, pd.Series):
+                data = data.to_frame(name=self.ticker_list[0] if len(self.ticker_list) == 1 else 'Price')
+            elif len(self.ticker_list) == 1 and not isinstance(data, pd.DataFrame):
+                data = data.to_frame(name=self.ticker_list[0])
+            
+            # Verify data is not empty
+            if data.empty:
+                raise ValueError(f"No data retrieved for tickers: {self.ticker_list}. Check ticker symbols and date range.")
+            
+            print(f"✓ Data fetched: {data.shape[0]} rows, {data.shape[1]} columns")
+            return data.dropna()
         
-        if len(self.ticker_list) == 1:
-            data = data.to_frame(name=self.ticker_list[0])
-        
-        return data.dropna()
+        except Exception as e:
+            raise RuntimeError(f"Error fetching data for {self.ticker_list}: {str(e)}")
+
     
     def calculate_market_implied_returns(self):
         """
@@ -150,6 +192,16 @@ class BlackLittermanOptimizer:
         # Market-implied returns
         implied_returns = self.calculate_market_implied_returns()
         
+        # If no views provided, return market-implied returns
+        if not views_dict or len(views_dict) == 0:
+            print("\n" + "="*60)
+            print("BLACK-LITTERMAN RETURNS (No Views - Using Market Equilibrium)")
+            print("="*60)
+            for ticker, ret in zip(self.ticker_list, implied_returns):
+                print(f"{ticker:8s}: {ret:8.4%}")
+            self.bl_returns = implied_returns
+            return implied_returns
+        
         # Investor views
         conf_levels = self.set_investor_views(views_dict, confidence_levels)
         
@@ -204,12 +256,20 @@ class BlackLittermanOptimizer:
         """
         n_assets = len(expected_returns)
         
-        # Objective: negative Sharpe ratio (minimize)
-        def neg_sharpe(weights):
+        # Objective: negative Sharpe ratio (minimize) + L2 Regularization
+        # Regularization encourages more diversified weights instead of just hugging min/max constraints
+        l2_lambda = 20.0  # Strong diversification penalty required to counteract huge historical outperformance of single assets
+        
+        def objective(weights):
             portfolio_return = np.sum(weights * expected_returns)
             portfolio_vol = np.sqrt(weights @ self.cov_matrix @ weights)
             sharpe_ratio = (portfolio_return - self.risk_free_rate) / portfolio_vol
-            return -sharpe_ratio
+            
+            # L2 penalty: sum of squared weights. Minimizing negative sharpe + l2 penalty 
+            # forces the optimizer to prefer smaller, more distributed weights where possible
+            l2_penalty = l2_lambda * np.sum(weights**2)
+            
+            return -sharpe_ratio + l2_penalty
         
         # Constraints
         constraints = (
@@ -223,7 +283,7 @@ class BlackLittermanOptimizer:
         x0 = np.array([1/n_assets] * n_assets)
         
         # Optimize
-        result = minimize(neg_sharpe, x0, method='SLSQP', bounds=bounds, 
+        result = minimize(objective, x0, method='SLSQP', bounds=bounds, 
                          constraints=constraints, options={'ftol': 1e-9})
         
         return result.x
@@ -240,8 +300,14 @@ class BlackLittermanOptimizer:
             returns = self.bl_returns
         
         # Basic metrics
-        portfolio_return = np.sum(weights * returns)
-        portfolio_vol = np.sqrt(weights @ self.cov_matrix @ weights)
+        # Note: If `returns` are daily unannualized (like bl_returns), we must annualize them here
+        # to match the scale of the annualized Volatility derived from the covariance matrix.
+        # Check an arbitrary asset's expected return to guess if it's already annualized or daily.
+        is_annualized = np.mean(returns) > 0.01  # True if average return > 1% (annualized scale)
+        annualization_factor = 252 if not is_annualized else 1
+        
+        portfolio_return = np.sum(weights * returns) * annualization_factor
+        portfolio_vol = np.sqrt(weights @ self.cov_matrix @ weights) * np.sqrt(252) # Also annualize Volatility
         sharpe_ratio = (portfolio_return - self.risk_free_rate) / portfolio_vol
         
         # Calculate portfolio daily returns for risk metrics
@@ -270,7 +336,7 @@ class BlackLittermanOptimizer:
         
         return metrics
     
-    def compare_models(self, views_dict, confidence_levels=None):
+    def compare_models(self, views_dict, confidence_levels=None, max_weight=None, min_weight=0.05):
         """
         Compare Markowitz Mean-Variance with Black-Litterman model.
         
@@ -282,13 +348,20 @@ class BlackLittermanOptimizer:
         print("PORTFOLIO COMPARISON")
         print("="*60)
         
+        # Set dynamic max weight constraint to prevent 100% allocation to a single asset
+        if max_weight is None:
+            n_assets = len(self.ticker_list)
+            max_weight = min(1.0, max(0.3, 2.0 / n_assets))
+            
+        print(f"Applying constraints - Min: {min_weight:.1%}, Max: {max_weight:.1%} per asset")
+        
         # Markowitz optimization (using historical mean returns)
-        markowitz_weights = self.optimize_portfolio(self.historical_mean)
+        markowitz_weights = self.optimize_portfolio(self.historical_mean, min_weight=min_weight, max_weight=max_weight)
         markowitz_metrics = self.get_portfolio_metrics(markowitz_weights, self.historical_mean)
         
         # Black-Litterman optimization
         bl_returns = self.apply_black_litterman(views_dict, confidence_levels)
-        bl_weights = self.optimize_portfolio(bl_returns)
+        bl_weights = self.optimize_portfolio(bl_returns, min_weight=min_weight, max_weight=max_weight)
         bl_metrics = self.get_portfolio_metrics(bl_weights, bl_returns)
         
         # Equal-weight portfolio (benchmark)
@@ -338,10 +411,13 @@ class BlackLittermanOptimizer:
 def main():
     """Main execution function."""
     
+    from datetime import datetime
+    from dateutil.relativedelta import relativedelta
+    
     # Configuration
     tickers = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA']
-    start_date = '2021-01-01'
-    end_date = '2026-02-21'
+    end_date = datetime.now().strftime('%Y-%m-%d')
+    start_date = (datetime.now() - relativedelta(years=5)).strftime('%Y-%m-%d')
     risk_free_rate = 0.03
     
     # Initialize optimizer

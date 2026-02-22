@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Black-Litterman Intelligence</title>
+
+    <!-- Modern Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <span class="logo-icon">📊</span>
+            <h1 class="logo-text">Portfolio <span class="highlight">Intelligence</span></h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="/"
+                style="color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95rem;">Engine
+                View</a>
+            <a href="/about"
+                style="color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95rem;">About
+                Model</a>
+
+            <div class="theme-toggle" style="margin-left: 10px;">
+                <button id="theme-btn" aria-label="Toggle Theme">
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display: none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container" style="display: block; max-width: 1000px; margin: 0 auto; padding-top: 120px;">
+        <section class="glass-card" style="padding: 3rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;" class="highlight">The Black-Litterman Philosophy</h2>
+
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 2rem;">
+                The Black-Litterman optimization model is an advanced quantitative framework developed at Goldman Sachs.
+                It natively solves the primary failure of traditional Markowitz Modern Portfolio Theory: extreme,
+                unrealistic allocations. By taking the mathematically proven concept of <strong>market-implied
+                    equilibriums</strong> (how the broader market currently values assets globally) and mathematically
+                bridging it with your own subjective <strong>Investor Views</strong> via a Bayesian statistical
+                approach, it generates an incredibly robust, diversified portfolio allocation strategy optimized exactly
+                for your risk-appetite.
+            </p>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.5rem;">Input Terminology</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="glass-card" style="background: rgba(var(--bg-main), 0.2);">
+                    <strong
+                        style="color: var(--accent-primary); font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">Expected
+                        Return (%)</strong>
+                    <p style="color: var(--text-muted); line-height: 1.6;">Your personal forecast for a specific asset's
+                        absolute annualized performance. For instance, if you predict AAPL will grow 12% over the next
+                        12 months, you map it directly as an absolute subjective view into the engine.</p>
+                </div>
+                <div class="glass-card" style="background: rgba(var(--bg-main), 0.2);">
+                    <strong
+                        style="color: var(--accent-primary); font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">Confidence
+                        (0 - 1.0)</strong>
+                    <p style="color: var(--text-muted); line-height: 1.6;">Represents your quantifiable certainty in a
+                        specific prediction. A confidence scaling exactly to 1.0 dictates absolute statistical
+                        conviction (heavily overriding market bounds), whereas 0.0 effectively instructs the engine to
+                        ignore your subjective view entirely.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; font-size: 1.5rem;">Model Outputs</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="glass-card" style="background: rgba(var(--bg-main), 0.2);">
+                    <strong
+                        style="color: var(--accent-secondary); font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">Sharpe
+                        Ratio</strong>
+                    <p style="color: var(--text-muted); line-height: 1.6;">The engine's primary risk-adjusted analytical
+                        performance metric. Generating a higher Sharpe Ratio geometrically implies that you are
+                        successfully extracting maximum targeted returns for every identical unit of volatility (risk)
+                        taken on the board.</p>
+                </div>
+                <div class="glass-card" style="background: rgba(var(--bg-main), 0.2);">
+                    <strong
+                        style="color: var(--accent-secondary); font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">Volatility</strong>
+                    <p style="color: var(--text-muted); line-height: 1.6;">The standardized annualized standard
+                        deviation of your mathematical portfolio structure. Broadly represents the total "risk"
+                        parameter or expected historical price fluctuation severity of your combined asset pipeline.</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        // Simple dark mode toggle for the standalone page
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            const htmlElement = document.documentElement;
+            const moonIcon = document.getElementById('moon-icon');
+            const sunIcon = document.getElementById('sun-icon');
+
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
