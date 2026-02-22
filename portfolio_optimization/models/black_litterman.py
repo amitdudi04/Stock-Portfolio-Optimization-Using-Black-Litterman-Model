@@ -531,6 +531,106 @@ class BlackLittermanOptimizer:
         print(f"\nSaved Tau Sensitivity plot to: {save_path}")
         plt.close()
 
+    def run_lambda_sensitivity(self, views_dict, confidence_levels=None, 
+                               lambda_values=[1.5, 2.0, 2.5, 3.0, 4.0], 
+                               max_weight=None, min_weight=0.05, save_dir="results"):
+        """
+        Run a robustness analysis to track Black-Litterman model sensitivity to Risk Aversion (λ).
+        
+        Parameters:
+        -----------
+        views_dict : dict
+            Investor views.
+        confidence_levels : dict
+            Confidence in views.
+        lambda_values : list
+            Array of risk aversion coefficients to iterate across.
+        max_weight : float
+            Maximum allocation weight per asset.
+        min_weight : float
+            Minimum allocation weight per asset.
+        save_dir : str
+            Directory to save the lambda sensitivity plot.
+            
+        Returns:
+        --------
+        pd.DataFrame : Results of the lambda sensitivity analysis.
+        """
+        print("\n" + "="*60)
+        print("RUNNING RISK AVERSION (λ) SENSITIVITY ANALYSIS")
+        print("="*60)
+        
+        results_list = []
+        original_lambda = self.lambda_risk
+        
+        if max_weight is None:
+            n_assets = len(self.ticker_list)
+            max_weight = min(1.0, max(0.3, 2.0 / n_assets))
+            
+        for lmb in lambda_values:
+            # Overwrite the intrinsic param
+            self.lambda_risk = lmb
+            print(f"Processing λ = {lmb:.2f} ...")
+            
+            # Recalculate Posteriors and re-optimize purely off new risk aversion assumption
+            bl_returns = self.apply_black_litterman(views_dict, confidence_levels)
+            bl_weights = self.optimize_portfolio(bl_returns, min_weight=min_weight, max_weight=max_weight)
+            bl_metrics = self.get_portfolio_metrics(bl_weights, bl_returns)
+            
+            # Record core metrics
+            record = {
+                'Lambda': lmb,
+                'Expected Return': bl_metrics['Expected Return'],
+                'Volatility': bl_metrics['Volatility'],
+                'Sharpe Ratio': bl_metrics['Sharpe Ratio']
+            }
+            
+            # Extract distinct asset weights
+            for ticker, weight in zip(self.ticker_list, bl_weights):
+                record[f'Weight_{ticker}'] = weight
+                
+            results_list.append(record)
+            
+        # Restore standard optimizer lambda condition
+        self.lambda_risk = original_lambda
+        
+        # Convert the iteration records to a clean dataframe
+        df = pd.DataFrame(results_list)
+        df.set_index('Lambda', inplace=True)
+        
+        # Build the visualization payload
+        os.makedirs(save_dir, exist_ok=True)
+        self._plot_lambda_sensitivity(df, save_dir)
+        
+        return df
+        
+    def _plot_lambda_sensitivity(self, df, save_dir):
+        """Helper to generate and export the 2-panel Matplotlib graphic for Lambda Sensitivity."""
+        fig = plt.figure(figsize=(15, 10))
+        
+        # Subplot 1: Lambda vs Sharpe Ratio
+        plt.subplot(2, 1, 1)
+        plt.plot(df.index, df['Sharpe Ratio'], marker='o', color='purple', linewidth=2)
+        plt.title('Risk Aversion (λ) vs Sharpe Ratio', fontsize=14, fontweight='bold')
+        plt.ylabel('Sharpe Ratio', fontsize=12)
+        plt.grid(True, alpha=0.3)
+        plt.xticks(df.index)
+        
+        # Subplot 2: Lambda vs Expected Return
+        plt.subplot(2, 1, 2)
+        plt.plot(df.index, df['Expected Return'] * 100, marker='^', color='teal', linewidth=2)
+        plt.title('Risk Aversion (λ) vs Expected Return', fontsize=14, fontweight='bold')
+        plt.xlabel('Risk Aversion Coef (λ)', fontsize=12)
+        plt.ylabel('Expected Return (%)', fontsize=12)
+        plt.grid(True, alpha=0.3)
+        plt.xticks(df.index)
+        
+        plt.tight_layout()
+        save_path = os.path.join(save_dir, 'lambda_sensitivity.png')
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"\nSaved Lambda Sensitivity plot to: {save_path}")
+        plt.close()
+
 
 def main():
     """Main execution function."""
