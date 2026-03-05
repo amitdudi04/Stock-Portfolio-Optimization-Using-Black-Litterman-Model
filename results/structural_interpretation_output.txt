@@ -1,4 +1,0 @@
-State backing appears to dampen volatility.
-Private firms provide higher growth but higher instability.
-Volatility difference p-value: 0.0106
-ASI difference p-value: 0.0047

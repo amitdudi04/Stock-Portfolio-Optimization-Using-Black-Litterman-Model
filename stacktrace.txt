@@ -1,2 +1,0 @@
-SOE returned: True
-Stats returned: {'CHINA': {'bootstrap_p': np.float64(0.262), 'jobson_korkie_p': np.float64(7.525698730859176e-08)}}

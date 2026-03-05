@@ -1,7 +1,0 @@
-Market,Model,Annualized Net Return,Annualized Volatility,Sharpe Ratio,Information Ratio,Max Drawdown,Average Turnover
-US,Black-Litterman,37.77%,31.27%,1.208,1.115,-43.17%,72.89%
-US,Markowitz,38.14%,31.74%,1.201,1.106,-44.21%,74.78%
-US,Benchmark,12.45%,17.18%,0.725,N/A,-33.92%,N/A
-CHINA,Black-Litterman,19.35%,28.92%,0.669,0.654,-39.55%,89.15%
-CHINA,Markowitz,17.16%,30.48%,0.563,0.530,-45.19%,91.00%
-CHINA,Benchmark,3.63%,16.82%,0.216,N/A,-27.27%,N/A

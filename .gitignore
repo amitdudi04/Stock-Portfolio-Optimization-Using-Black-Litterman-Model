@@ -1,14 +1,26 @@
-# .gitignore
-__pycache__/
-*.py[cod]
-*$py.class
+# Python environments
 .venv/
-.venv-1/
-.vscode/
+venv/
 
-# Project specific
-data/raw/*
-data/processed/*
-results/v1_final_results/*.csv
-results/v1_final_results/*.json
-*.log
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Raw data
+data/raw/
+
+# Temporary files
+tmp/
+cache/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
