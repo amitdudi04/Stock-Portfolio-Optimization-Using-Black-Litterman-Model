@@ -1,7 +1,6 @@
 # Regime-Sensitive Black–Litterman Tri-Market Portfolio Allocation Study
 
 **Author:** Amit Kumar Dudi  
-**Date:** March 2026
 
 ## Project Overview
 This repository hosts a professional quantitative research pipeline investigating the out-of-sample stability of the Black-Litterman Bayesian allocation framework operating across the United States, China, and India markets. Built for explicit academic reproducibility, the system architecture completely decouples theoretical mathematical models from chronological data manipulation, frictional simulations, and structural statistical validations.
