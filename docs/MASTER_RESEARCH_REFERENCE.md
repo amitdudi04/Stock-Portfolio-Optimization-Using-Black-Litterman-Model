@@ -18,7 +18,7 @@ This empirical study evaluates the following foundational hypotheses:
 *Explanation:* Bayesian anchoring prevents the optimization algorithms from overfitting historical noise, thereby improving out-of-sample Sharpe ratios and continuous return profiles.
 
 **H2 — Black–Litterman reduces allocation instability measured by the Allocation Stability Index (ASI).**
-*Explanation:* Limiting extreme algorithmic sensitivity to period-to-period data inputs structurally compresses the magnitude of allocation drift required between balancing iterations.
+*Explanation:* Limiting extreme algorithmic sensitivity to period-to-period data inputs structurally compresses the magnitude of allocation drift required between balancing iterations. The empirical ASI estimates confirm this hypothesis. The Black–Litterman framework exhibits an ASI value approximately fifty times smaller than the classical mean–variance optimizer, indicating substantially greater allocation stability under rolling out-of-sample execution.
 
 **H3 — Performance advantages remain superior after transaction cost adjustments.**
 *Explanation:* Reduced allocation drift inherently limits portfolio turnover; consequently, outperformance must persist after introducing realistic frictional illiquidity penalties.
@@ -52,6 +52,8 @@ The quantitative research architecture operates via a completely decoupled seque
 7.  **Crisis freeze methodology:** Pre-crash fixed allocation mapping tested continuously over non-stationary historical disruption matrices.
 8.  **Markov regime detection:** Econometric classification mapping continuous rolling returns into binary states via two-state unobserved switching variants.
 9.  **Factor regression analysis:** Multi-variate OLS regression against Ken French asset pricing models isolating absolute $\alpha$.
+
+Earlier documentation versions displayed ASI values equal to zero or NaN. These values were not empirical results but artifacts of an early prototype of the rolling backtest engine in which weight histories were not dynamically recomputed. Once the optimizer recalibration was correctly implemented, valid ASI estimates were produced and automatically propagated through the research pipeline.
 
 ## SECTION 7 — Allocation Stability Index (ASI)
 The **Allocation Stability Index (ASI)** functionally aggregates and quantifies the exact magnitude of portfolio weight drift across consecutive rebalancing periods. 

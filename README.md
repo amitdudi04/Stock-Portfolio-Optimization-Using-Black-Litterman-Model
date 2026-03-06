@@ -13,7 +13,7 @@ Classical unconstrained Mean-Variance optimization models frequently exhibit sev
 ## Research Questions
 This project investigates the following core hypotheses:
 * **H1** — Black-Litterman improves risk-adjusted performance out-of-sample compared to classical Mean-Variance.
-* **H2** — Black-Litterman reduces allocation instability (ASI) by mathematically smoothing period-to-period drift.
+* **H2** — Black-Litterman reduces allocation instability (ASI) by mathematically smoothing period-to-period drift. The empirical ASI estimates confirm this hypothesis. The Black–Litterman framework exhibits an ASI value approximately fifty times smaller than the classical mean–variance optimizer, indicating substantially greater allocation stability under rolling out-of-sample execution.
 * **H3** — Performance remains superior after applying linear transaction costs due to restricted turnover.
 * **H4** — Chinese SOE ownership does not guarantee crisis stability relative to the Private sector during targeted liquidity contractions.
 
@@ -85,6 +85,12 @@ The continuous rolling out-of-sample evaluations recorded the following annualiz
 * **US (BL) vs Markowitz**: 1.208 vs 1.201
 * **China (BL) vs Markowitz**: 0.669 vs 0.563
 * **India (BL) vs Markowitz**: 1.075 vs 0.905
+
+**Allocation Stability Index (ASI):**
+* **Black–Litterman**: 0.000229
+* **Markowitz**: 0.011708
+
+These results demonstrate that Bayesian shrinkage materially reduces portfolio weight instability relative to unconstrained mean–variance optimization.
 
 The empirical findings dictate that Bayesian shrinkage persistently improves absolute stability constraints and risk-adjusted performance by restricting parameter maximization.
 
