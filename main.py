@@ -6,7 +6,9 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 
 try:
     from ui.desktop_gui import launch_desktop_gui
-except ImportError as e:
+except Exception as e:
+    import traceback
+    traceback.print_exc()
     print(f"\n[ERROR] Failed to load the Quantitative Research Platform GUI.")
     print(f"Details: {e}")
     print("\nPlease ensure all dependencies are installed.")

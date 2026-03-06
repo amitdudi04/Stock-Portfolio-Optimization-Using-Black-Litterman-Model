@@ -7,7 +7,7 @@ def run_oos():
     df = pd.read_csv("data/INDIA_universe.csv")
     tickers = df['Ticker'].tolist()
     
-    from core.dual_market import MARKET_CONFIG
+    from pipelines.dual_market import MARKET_CONFIG
     config = MARKET_CONFIG["INDIA"]
     
     # We'll just run evaluate_dual_market and pull out the turn costs via ASI

@@ -1,6 +1,6 @@
 import sys
 import logging
-from core.dual_market import evaluate_dual_market, MARKET_CONFIG
+from pipelines.dual_market import evaluate_dual_market, MARKET_CONFIG
 
 logging.basicConfig(level=logging.INFO)
 

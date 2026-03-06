@@ -1,5 +1,5 @@
 import traceback
-from core.dual_market import evaluate_dual_market, MARKET_CONFIG
+from pipelines.dual_market import evaluate_dual_market, MARKET_CONFIG
 
 if __name__ == "__main__":
     try:

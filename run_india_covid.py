@@ -1,6 +1,6 @@
 import pandas as pd
 from core.stress_testing import HistoricalStressTester
-from core.dual_market import MARKET_CONFIG
+from pipelines.dual_market import MARKET_CONFIG
 
 def run_india_crisis():
     # Load India universe

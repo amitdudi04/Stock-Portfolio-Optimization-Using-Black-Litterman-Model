@@ -6,6 +6,9 @@ sys.path.append(os.path.dirname(__file__))
 
 # Enable module running capabilities
 if __name__ == "__main__":
-    print("Regime-Sensitive Black–Litterman Tri-Market Portfolio Allocation Study")
-    print("Please execute a specific module pipeline.")
-    print("Example: python -m pipelines.run_tri_market_pipeline")
+    print("=========================================================================")
+    print(" EMPIRICAL EVALUATION ENGINE: US DEVELOPED, CHINA & INDIA EMERGING")
+    print("=========================================================================")
+    print("Starting Professional Quantitative Research Platform GUI...")
+    from ui.desktop_gui import launch_desktop_gui
+    launch_desktop_gui()

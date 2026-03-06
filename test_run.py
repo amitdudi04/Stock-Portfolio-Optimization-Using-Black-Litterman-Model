@@ -1,7 +1,7 @@
 import logging
 logging.basicConfig(level=logging.INFO)
 try:
-    from core.dual_market import evaluate_dual_market
+    from pipelines.dual_market import evaluate_dual_market
     print('Starting eval...')
     res = evaluate_dual_market()
     print('Done.')
