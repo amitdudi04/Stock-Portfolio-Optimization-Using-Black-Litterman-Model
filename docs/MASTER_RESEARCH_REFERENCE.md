@@ -158,14 +158,39 @@ This generalized evaluation operates exclusively inside specifically bounded ass
 Future methodological trajectories must address implicit static modeling failures. Extending the isolated binary Markov state sequences into generalized unobserved multidimensional matrices mapping inflation versus deflation bounds would natively categorize complex cross-asset macro environments. Alternatively, replacing the arbitrary analyst confidence intervals specifying the absolute subjective view matrix ($P$ and $Q$) directly with dynamic machine-learning generated non-linear classification signals supplies an explicit absolute algorithmic alpha generative limit natively synchronized into a unified capital optimization stack.
 
 ## SECTION 19 — System Architecture and Pipeline Reference
-The entire empirical framework executed within this study is driven by a completely modular, decoupled quantitative research pipeline. The codebase strictly divides theoretical optimization modeling, chronological data fetching, and analytical cross-sectional stress testing.
+The entire empirical framework executed within this study is driven by a completely modular, decoupled quantitative research pipeline developed in Python. To ensure mathematical integrity, strict chronology, and reproducibility, the codebase physically segregates theoretical optimization modeling, chronological data fetching, and analytical cross-sectional stress testing into isolated structural modules.
 
-For a comprehensive diagram mapping the exact sequential execution of the data flow, please refer to the markdown representation:
-*   `docs/research_pipeline_diagram.md`
+### Modular Architecture
+1. **`core/` (Data & Math Logic):** Houses the fundamental `return_calculations.py` and `covariance_estimators.py` modules. This layer executes initial chronological alignments, calculates logarithmic returns, and processes the Ledoit–Wolf shrinkage matrix computations.
+2. **`models/` (Theoretical Engines):** Contains the unadulterated optimization logic inside `black_litterman_model.py` and `optimizer.py`. This tier specifically generates the Bayesian posterior expected returns by mathematically synthesizing subjective investor views with the CAPM-derived implied equilibrium bounds, optimizing for maximal Sharpe ratios via SciPy structural formulations.
+3. **`backtesting/` (Execution Simulation):** Defines the out-of-sample chronological iteration loops within `rolling_backtest.py`. It integrates the practical realities of fund management by imposing linear turnover restrictions through `transaction_costs.py` and simulating extreme drawdowns cleanly decoupled via `crisis_freeze.py`.
+4. **`analysis/` (Econometric Stress Testing):** Performs post-execution analytical evaluations, identifying unobserved Markov variance regimes, estimating Fama–French $R^{2}$ breakpoints via `statistical_tests.py`, and structurally segmenting data for the SOE ownership validation inside `soe_private_analysis.py`.
+5. **`pipelines/` (Execution Automation):** Acts as the centralized macro orchestrator executing deterministic sequential iterations natively tracking identical execution nodes without manual logic intervention.
 
-For formal institutional documentation detailing the complete architectural structure and the precise refactoring transition from monolithic legacy scripts to the current modular object-oriented research stack, please refer to the authoritative architecture manuals:
-*   `docs/Research_Pipeline_Architecture_Documentation.docx`
-*   `docs/Project_Architecture_Refactoring_Plan.docx`
+### Pipeline Execution Flow
+The absolute progression of data vectors from raw historical indexing into finalized academic validations maps explicitly as follows:
+
+```text
+Market Data
+↓
+Return Calculation (core/)
+↓
+Covariance Estimation & Shrinkage (core/)
+↓
+Black–Litterman Bayesian Optimization (models/)
+↓
+Rolling Out-of-Sample Validations (backtesting/)
+↓
+Transaction Cost / Frictional Adjustments (backtesting/)
+↓
+Crisis Freeze & Sub-Study Isolations (backtesting/ & analysis/)
+↓
+Statistical & Regime Validation (analysis/)
+↓
+Final Results Export (results/)
+```
+
+By decoupling these processes, the research guarantees that no forward-looking informational assumptions bleed into historical estimations, strictly isolating the exact value-add provided by the Bayesian algorithmic framework.
 
 ## SECTION 20 — Final Conclusion
 This absolute out-of-sample empirical research system explicitly verified utilizing fully reproducible mathematical frameworks that unconstrained mean–variance models remain structurally fragile due to localized parameter estimation errors. Imposing mathematical Bayesian constraints utilizing the theoretical regime-adaptive Black–Litterman equilibrium anchors demonstrably enhanced absolute out-of-sample portfolio stability, systematically limited destructive institutional trading turnover constraints, and maximized net structural risk-adjusted performance continuously across varied global market architectures.
