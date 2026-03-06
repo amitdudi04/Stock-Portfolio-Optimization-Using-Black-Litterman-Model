@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 # Core Engine
-from core.dual_market import evaluate_dual_market, MARKET_CONFIG, TICKER_NAME_MAP
+from pipelines.dual_market import evaluate_dual_market, MARKET_CONFIG, TICKER_NAME_MAP
 from ui.plot_utils import COLORS, apply_modern_theme, apply_figure_theme
 
 class DateSelector(QWidget):
