@@ -1,6 +1,7 @@
 import sys
 import os
 import yaml
+import pathlib
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -15,7 +16,8 @@ def run():
     print("Executing SOE vs Private Structural Pipeline...")
     
     # 1. Load config
-    config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'project_config.yaml')
+    project_root = pathlib.Path(__file__).resolve().parent.parent
+    config_path = project_root / 'config' / 'project_config.yaml'
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
         

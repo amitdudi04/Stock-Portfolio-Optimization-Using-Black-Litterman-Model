@@ -7,7 +7,7 @@ Classical unconstrained mean-variance optimization models frequently exhibit str
 The **Black-Litterman Model** stabilizes matrix inputs mathematically by anchoring subjective analyst views against an implied global equilibrium anchor. 
 
 ## 3. System Architecture
-The research codebase abandons monolithic execution blocks in favor of a heavily modularized infrastructure engineered explicitly for peer-review replication. Functional isolation arrays include `core/` modeling components, `backtesting/` evaluators, `analysis/` structural sub-tests, and declarative `pipelines/` execution wrappers orchestrated centrally by `config/project_config.yaml`.
+The research framework abandons monolithic configurations in favor of a heavily modularized infrastructure engineered explicitly for peer-review replication. Functional isolation arrays include `core/` modeling components, `backtesting/` evaluators, `analysis/` structural sub-tests, and declarative `pipelines/` estimation sequences orchestrated centrally by `config/project_config.yaml`.
 
 ## 4. Methodology Implementation
 Out-of-sample execution is driven by a strict continuous 252-day expanding **Rolling Backtest Framework** to eliminate forward-looking estimation bias.
@@ -42,7 +42,10 @@ All empirical evaluations execute a strict sequential chronology to structurally
 
 All empirical results presented in this study are fully reproducible through the modular research pipeline included in the accompanying repository. Executing the provided pipeline scripts regenerates all result tables, visualizations, and statistical outputs directly from the underlying market data.
 
-## 11. Study Limitations
+## 11. Execution Integrity and Unit Testing
+The repository includes a lightweight unit testing framework to validate core mathematical functions such as covariance estimation, optimization constraints, and rolling backtest execution. While empirical finance papers rarely document testing infrastructure, the inclusion of unit tests strengthens reproducibility and safeguards against numerical instability within the research pipeline.
+
+## 12. Study Limitations
 The empirical generalizations presented heavily rely on formalized boundary assumptions. ETF proxies operate as investable baseline representations but inherently suffer from dividend reinvestment friction differences. Frictional constraints heavily utilize linear transaction cost simplifications (0.10%), which do not accurately map the variable illiquidity gaps observed during outright crisis regimes. Structural inferences are also restricted by market microstructure differences across US, Chinese, and Indian clearing operations. Furthermore, the limited target sample selection constraints within developing index arrays restrict deeper cross-sectional conclusions.
 
 ## 12. Future Research Directions

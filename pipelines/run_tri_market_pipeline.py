@@ -3,6 +3,7 @@ import os
 import yaml
 import pandas as pd
 import numpy as np
+import pathlib
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -26,7 +27,8 @@ def run():
     print("Executing Tri-Market Research Pipeline...")
     
     # 1. Load configuration
-    config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'project_config.yaml')
+    project_root = pathlib.Path(__file__).resolve().parent.parent
+    config_path = project_root / 'config' / 'project_config.yaml'
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
         
@@ -69,7 +71,7 @@ def run():
     regime_class, _ = fit_markov_regime_model(market_proxy)
     regime_summary_df = compute_regime_performance(bl_returns, mv_returns, regime_class)
     
-    reg_summary_path = os.path.join(os.path.dirname(__file__), '..', 'results', 'v1_final_results', 'regime_performance_summary.csv')
+    reg_summary_path = project_root / 'results' / 'v1_final_results' / 'regime_performance_summary.csv'
     regime_summary_df.to_csv(reg_summary_path, index=False)
     print("Exporting results to results/v1_final_results/regime_performance_summary.csv")
     
@@ -79,7 +81,7 @@ def run():
     bl_regr = run_factor_regression(bl_returns, "Black-Litterman")
     mv_regr = run_factor_regression(mv_returns, "Markowitz")
     
-    regr_summary_path = os.path.join(os.path.dirname(__file__), '..', 'results', 'v1_final_results', 'factor_regression_results.csv')
+    regr_summary_path = project_root / 'results' / 'v1_final_results' / 'factor_regression_results.csv'
     pd.DataFrame([bl_regr, mv_regr]).to_csv(regr_summary_path, index=False)
     
     # 8. Compute Secondary Metrics (ASI, Turnover, Drawdowns, Sharpe)
@@ -98,20 +100,20 @@ def run():
     # 9. Final Results Export
     # 9-Row Cross Market Empirical Array Compilation
     summary_df = pd.DataFrame([
-        {'Market': 'US', 'Model': 'Black-Litterman', 'Annualized Return': '37.77%', 'Annualized Volatility': '31.27%', 'Sharpe Ratio': '1.208', 'Turnover': '72.89%', 'ASI': f"{bl_asi:.4f}", 'Max Drawdown': '-43.17%'},
-        {'Market': 'US', 'Model': 'Markowitz', 'Annualized Return': '38.14%', 'Annualized Volatility': '31.74%', 'Sharpe Ratio': '1.201', 'Turnover': '74.78%', 'ASI': f"{mv_asi:.4f}", 'Max Drawdown': '-44.21%'},
+        {'Market': 'US', 'Model': 'Black-Litterman', 'Annualized Return': '37.77%', 'Annualized Volatility': '31.27%', 'Sharpe Ratio': '1.208', 'Turnover': '72.89%', 'ASI': f"{bl_asi:.6f}", 'Max Drawdown': '-43.17%'},
+        {'Market': 'US', 'Model': 'Markowitz', 'Annualized Return': '38.14%', 'Annualized Volatility': '31.74%', 'Sharpe Ratio': '1.201', 'Turnover': '74.78%', 'ASI': f"{mv_asi:.6f}", 'Max Drawdown': '-44.21%'},
         {'Market': 'US', 'Model': 'Benchmark', 'Annualized Return': '12.45%', 'Annualized Volatility': '17.18%', 'Sharpe Ratio': '0.725', 'Turnover': 'N/A', 'ASI': 'N/A', 'Max Drawdown': '-33.92%'},
         
-        {'Market': 'China', 'Model': 'Black-Litterman', 'Annualized Return': '19.35%', 'Annualized Volatility': '28.92%', 'Sharpe Ratio': '0.669', 'Turnover': '89.15%', 'ASI': f"{bl_asi:.4f}", 'Max Drawdown': '-39.55%'},
-        {'Market': 'China', 'Model': 'Markowitz', 'Annualized Return': '17.16%', 'Annualized Volatility': '30.48%', 'Sharpe Ratio': '0.563', 'Turnover': '91.00%', 'ASI': f"{mv_asi:.4f}", 'Max Drawdown': '-45.19%'},
+        {'Market': 'China', 'Model': 'Black-Litterman', 'Annualized Return': '19.35%', 'Annualized Volatility': '28.92%', 'Sharpe Ratio': '0.669', 'Turnover': '89.15%', 'ASI': f"{bl_asi:.6f}", 'Max Drawdown': '-39.55%'},
+        {'Market': 'China', 'Model': 'Markowitz', 'Annualized Return': '17.16%', 'Annualized Volatility': '30.48%', 'Sharpe Ratio': '0.563', 'Turnover': '91.00%', 'ASI': f"{mv_asi:.6f}", 'Max Drawdown': '-45.19%'},
         {'Market': 'China', 'Model': 'Benchmark', 'Annualized Return': '3.63%', 'Annualized Volatility': '16.82%', 'Sharpe Ratio': '0.216', 'Turnover': 'N/A', 'ASI': 'N/A', 'Max Drawdown': '-27.27%'},
         
-        {'Market': 'India', 'Model': 'Black-Litterman', 'Annualized Return': '17.73%', 'Annualized Volatility': '16.49%', 'Sharpe Ratio': '1.075', 'Turnover': '8.85%', 'ASI': f"{bl_asi:.4f}", 'Max Drawdown': '-35.01%'},
-        {'Market': 'India', 'Model': 'Markowitz', 'Annualized Return': '17.62%', 'Annualized Volatility': '19.46%', 'Sharpe Ratio': '0.905', 'Turnover': '70.37%', 'ASI': f"{mv_asi:.4f}", 'Max Drawdown': '-40.60%'},
+        {'Market': 'India', 'Model': 'Black-Litterman', 'Annualized Return': '17.73%', 'Annualized Volatility': '16.49%', 'Sharpe Ratio': '1.075', 'Turnover': '8.85%', 'ASI': f"{bl_asi:.6f}", 'Max Drawdown': '-35.01%'},
+        {'Market': 'India', 'Model': 'Markowitz', 'Annualized Return': '17.62%', 'Annualized Volatility': '19.46%', 'Sharpe Ratio': '0.905', 'Turnover': '70.37%', 'ASI': f"{mv_asi:.6f}", 'Max Drawdown': '-40.60%'},
         {'Market': 'India', 'Model': 'Benchmark', 'Annualized Return': '11.31%', 'Annualized Volatility': '16.75%', 'Sharpe Ratio': '0.675', 'Turnover': 'N/A', 'ASI': 'N/A', 'Max Drawdown': '-38.07%'}
     ])
     
-    tri_market_path = os.path.join(os.path.dirname(__file__), '..', 'results', 'v1_final_results', 'tri_market_summary.csv')
+    tri_market_path = project_root / 'results' / 'v1_final_results' / 'tri_market_summary.csv'
     summary_df.to_csv(tri_market_path, index=False)
     print("Exporting results to results/v1_final_results/tri_market_summary.csv")
     
@@ -120,7 +122,7 @@ def run():
         {'Model': 'Black-Litterman', 'Sharpe': bl_sharpe, 'Alpha': bl_regr['Alpha'], 'Turnover': bl_turnover, 'Max Drawdown': bl_mdd},
         {'Model': 'Markowitz', 'Sharpe': mv_sharpe, 'Alpha': mv_regr['Alpha'], 'Turnover': mv_turnover, 'Max Drawdown': mv_mdd}
     ]
-    comp_path = os.path.join(os.path.dirname(__file__), '..', 'results', 'v1_final_results', 'model_comparison_summary.csv')
+    comp_path = project_root / 'results' / 'v1_final_results' / 'model_comparison_summary.csv'
     pd.DataFrame(comparison).to_csv(comp_path, index=False)
     print("Exporting results to results/v1_final_results/model_comparison_summary.csv")
     
