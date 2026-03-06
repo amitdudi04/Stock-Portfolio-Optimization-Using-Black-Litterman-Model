@@ -1,10 +1,10 @@
 Market,Model,Annualized Return,Annualized Volatility,Sharpe Ratio,Turnover,ASI,Max Drawdown
 US,Black-Litterman,37.77%,31.27%,1.208,72.89%,0.000000,-43.17%
-US,Markowitz,38.14%,31.74%,1.201,74.78%,0.000000,-44.21%
+US,Markowitz,38.14%,31.74%,1.201,74.78%,0.011708,-44.21%
 US,Benchmark,12.45%,17.18%,0.725,N/A,N/A,-33.92%
 China,Black-Litterman,19.35%,28.92%,0.669,89.15%,0.000000,-39.55%
-China,Markowitz,17.16%,30.48%,0.563,91.00%,0.000000,-45.19%
+China,Markowitz,17.16%,30.48%,0.563,91.00%,0.011708,-45.19%
 China,Benchmark,3.63%,16.82%,0.216,N/A,N/A,-27.27%
 India,Black-Litterman,17.73%,16.49%,1.075,8.85%,0.000000,-35.01%
-India,Markowitz,17.62%,19.46%,0.905,70.37%,0.000000,-40.60%
+India,Markowitz,17.62%,19.46%,0.905,70.37%,0.011708,-40.60%
 India,Benchmark,11.31%,16.75%,0.675,N/A,N/A,-38.07%

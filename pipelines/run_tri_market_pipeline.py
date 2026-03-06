@@ -60,8 +60,8 @@ def run():
     mv_weights = compute_mean_variance_weights(returns.mean() * 252, cov_matrix)
     
     # 7. Perform rolling backtests
-    bl_returns, bl_weights_history = run_rolling_backtest(returns, bl_weights, window_size=window_size)
-    mv_returns, mv_weights_history = run_rolling_backtest(returns, mv_weights, window_size=window_size)
+    bl_returns, bl_weights_history = run_rolling_backtest(returns, bl_weights, window_size=window_size, model_type='black_litterman', tau=tau)
+    mv_returns, mv_weights_history = run_rolling_backtest(returns, mv_weights, window_size=window_size, model_type='markowitz')
     
     # 7.2 Run Regime Detection Analysis
     print("Running Markov Regime Switching Detection...")
