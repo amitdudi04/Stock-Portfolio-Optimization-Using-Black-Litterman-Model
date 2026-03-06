@@ -157,5 +157,15 @@ This generalized evaluation operates exclusively inside specifically bounded ass
 ## SECTION 18 — Future Research Directions
 Future methodological trajectories must address implicit static modeling failures. Extending the isolated binary Markov state sequences into generalized unobserved multidimensional matrices mapping inflation versus deflation bounds would natively categorize complex cross-asset macro environments. Alternatively, replacing the arbitrary analyst confidence intervals specifying the absolute subjective view matrix ($P$ and $Q$) directly with dynamic machine-learning generated non-linear classification signals supplies an explicit absolute algorithmic alpha generative limit natively synchronized into a unified capital optimization stack.
 
-## SECTION 19 — Final Conclusion
+## SECTION 19 — System Architecture and Pipeline Reference
+The entire empirical framework executed within this study is driven by a completely modular, decoupled quantitative research pipeline. The codebase strictly divides theoretical optimization modeling, chronological data fetching, and analytical cross-sectional stress testing.
+
+For a comprehensive diagram mapping the exact sequential execution of the data flow, please refer to the markdown representation:
+*   `docs/research_pipeline_diagram.md`
+
+For formal institutional documentation detailing the complete architectural structure and the precise refactoring transition from monolithic legacy scripts to the current modular object-oriented research stack, please refer to the authoritative architecture manuals:
+*   `docs/Research_Pipeline_Architecture_Documentation.docx`
+*   `docs/Project_Architecture_Refactoring_Plan.docx`
+
+## SECTION 20 — Final Conclusion
 This absolute out-of-sample empirical research system explicitly verified utilizing fully reproducible mathematical frameworks that unconstrained mean–variance models remain structurally fragile due to localized parameter estimation errors. Imposing mathematical Bayesian constraints utilizing the theoretical regime-adaptive Black–Litterman equilibrium anchors demonstrably enhanced absolute out-of-sample portfolio stability, systematically limited destructive institutional trading turnover constraints, and maximized net structural risk-adjusted performance continuously across varied global market architectures.
