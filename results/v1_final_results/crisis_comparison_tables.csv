@@ -1,2 +1,7 @@
-Crisis Tested,Simulation_Status
-"['2008_US_GFC', '2015_China_Crash', '2020_India_Covid']",Active
+Crisis,Market,Model,Max Drawdown,Volatility Spike,Recovery Time
+2008_US_GFC,United States,Black-Litterman,-62.66%,1.82x,495 days
+2008_US_GFC,United States,Markowitz,-62.77%,1.82x,495 days
+2015_China_Crash,China,Black-Litterman,-26.00%,1.63x,250 days
+2015_China_Crash,China,Markowitz,-25.38%,1.63x,127 days
+2020_India_Covid,India,Black-Litterman,-49.85%,0.91x,378 days
+2020_India_Covid,India,Markowitz,-49.33%,1.17x,378 days

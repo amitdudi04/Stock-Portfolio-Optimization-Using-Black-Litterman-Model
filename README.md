@@ -69,10 +69,14 @@ python experiments/run_tau_sensitivity.py
 ```
 
 ## Key Results Summary
-* **Bayesian Stabilization**: The Black-Litterman optimization demonstrated statistically significant advantages regarding structural turnover mitigation and out-of-sample absolute drawdown compression compared to the baseline Mean-Variance unconstrained framework.
+* **Bayesian Stabilization (ASI)**: The Black-Litterman optimization demonstrated statistically significant advantages regarding structural turnover mitigation and out-of-sample absolute drawdown compression. Portfolio stability was measured utilizing the Allocation Stability Index (ASI)—the average L1 norm distance between consecutive weight vectors. Black–Litterman structurally reduced ASI because Bayesian shrinkage stabilizes expected return estimates over continuous rebalancing.
+* **Emerging Market Crisis Frictions**: During the 2020 India Covid dislocation, the Black-Litterman array registered a volatility spike of 0.91x (below unity). This indicates that realized volatility during the crisis window was not higher than the preceding training period, which frequently occurs in emerging markets when crisis dynamics are transmitted through severe liquidity contractions rather than volatility expansions.
 * **Structural Ownership Insulation**: The empirical sub-study isolated during the 2015 Chinese liquidity contraction definitively rejected institutional heuristics; Chinese SOEs structurally failed to supply asymmetric downside isolation comparatively against their Private cohort.
-* **Regime Conditional Superiority**: Conditional variance modeling mapped via two-state Markov Switching verified Black-Litterman’s isolated outperformance structurally compounded primarily underneath deep high-volatility systemic regimes.
-* **Fama-French Validation**: True predictive Alpha generation was isolated and structurally confirmed disjoint of latent implicit systematic size/value momentum constraints.
+* **Regime Conditional Superiority**: Conditional variance modeling via two-state Markov Switching verified Black-Litterman allocations distinctly outperform during high-uncertainty regimes. This occurs precisely due to Bayesian shrinkage anchoring estimates when historical sample variance explodes unpredictably.
+* **Fama-French Validation**: Evaluating the out-of-sample data against the Fama-French 4-factor model confirmed that optimization performance is dominated by systematic factor exposure (market beta) rather than pure unobserved alpha ($\alpha \approx 0$).
+
+## Study Limitations
+The empirical generalizations presented heavily rely on formalized boundary assumptions. ETF proxies operate as investable baseline representations but inherently suffer from dividend reinvestment friction differences. Frictional constraints heavily utilize linear transaction cost simplifications (0.10%), which do not accurately map the variable illiquidity gaps observed during outright crisis regimes. Structural inferences are also inherently restricted by market microstructure differences across US, Chinese, and Indian clearing operations, alongside sample selection constraints within developing index arrays.
 
 ## Visualization Examples
 Upon pipeline execution, continuous statistical distributions render natively into `visualization/`:
